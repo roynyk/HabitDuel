@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String?
+  avatarUrl String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  roomMembers RoomMember[]
+  checkIns    CheckInProof[]
+}
+
+model Room {
+  id                 String    @id @default(uuid())
+  name               String
+  inviteCode         String    @unique
+  habitTitle         String
+  habitDescription   String?
+  targetDaysPerWeek  Int       @default(7)
+  dailyDeadlineHours Int       @default(22) // Default jam 10 malam (22:00)
+  startDate          DateTime?
+  endDate            DateTime?
+  createdById        String
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  members  RoomMember[]
+  checkIns CheckInProof[]
+}
+
+model RoomMember {
+  id            String   @id @default(uuid())
+  roomId        String
+  userId        String
+  currentStreak Int      @default(0)
+  highestStreak Int      @default(0)
+  joinedAt      DateTime @default(now())
+
+  room Room @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([roomId, userId])
+}
+
+enum CheckInStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model CheckInProof {
+  id           String        @id @default(uuid())
+  roomId       String
+  userId       String
+  photoUrl     String
+  note         String?
+  checkInDate  DateTime      @default(now())
+  status       CheckInStatus @default(APPROVED)
+  createdAt    DateTime      @default(now())
+
+  room Room @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

@@ -1,0 +1,46 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/geist";
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #F2F0EA;
+  color: #292524;
+  font-family: 'Geist Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+  antialiased: true;
+}
+
+/* Custom Webkit Time & Date Picker Indicator Button (Latar Cokelat Warm) */
+input[type="time"]::-webkit-calendar-picker-indicator,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background-color: #78350f;
+  color: white;
+  filter: invert(1);
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 6px;
+  margin-right: 2px;
+  transition: background-color 0.2s ease;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator:hover,
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  background-color: #451a03;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #EAE6DD;
+}
+::-webkit-scrollbar-thumb {
+  background: #D5CFBF;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B8B09E;
+}

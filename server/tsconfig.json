@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "target": "es2022",
+    "types": ["node"],
+    "sourceMap": false,
+    "strict": true,
+    "verbatimModuleSyntax": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["prisma.config.ts", "prisma", "dist", "node_modules"]
+}
